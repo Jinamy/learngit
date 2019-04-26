@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSS</title>
+	
+	<style>
+		p{color: #171717;font-family: "楷体";}
+		.list1 li:last-child{background: #2A7AD9;margin: 0 auto;border:1px ridge #12296A;padding-left:10px;padding-right: 10px;padding-bottom: 5px;}
+		.list2 li:last-child{background: #AD450E;margin: 0 auto;padding-left:10px;padding-right: 10px;padding-bottom: 5px;border:1px ridge #3D1405;}
+		#box{width: 1200px;height: auto;}
+	</style>
+	<script>
+		var oP=document.getElementsByTagName("p");
+		function getColor(){
+			
+			alert(getComputedStyle(oP[0]).color);
+			alert(getComputedStyle(oP[0]).fontFamily);
+		}
+		
+		function set(){
+			var oAttr=document.getElementById("attr").value;
+			var oVal=document.getElementById("val").value;
+			oP[1].style[oAttr]=oVal;
+		}
+		function setCssText(){
+			var oTxt=document.getElementById("txt").value;
+			oP[2].style.cssText=oTxt;
+		}
+		var flag=true;
+		function changeBack(){
+			var oUl=document.getElementsByTagName("ul");
+			if(flag==true){
+				oUl[1].className="list1";
+				flag=false;
+			}else{
+				oUl[1].className="list2";
+				flag=true;
+			}
+				
+		}
+		function getWidth(){
+			var oDiv=document.getElementById("box");
+			alert(oDiv.style.width);//对话框为空
+			alert(getComputedStyle(oDiv).width);
+		}
+	</script>
+</head>
+
+<body>
+	<h1>CSS属性操作</h1>
+	CSS属性操作两种方法
+	<ul>
+		<li><h3>获取CSS属性值</h3><p>getComputerStyle()方法实现。语法：getComputerStyle(obj).attr;<br>
+			<strong>说明：</strong><br>
+			attr表示属性名，使用“骆驼峰型”命名。getComputerStyle()方法有一定的兼容性，支持Google，Firefox，IE9及以上，对于IE6，IE7，IE8，可以使用currentStyle（）。实际上该方法有两种写法<br>
+			1）getComputerStyle(obj).attr<br>
+			2）getComputerStyle(obj)["attr"]<br>
+			事实上，凡是对象的属性都有两种写法，例如：document.getElement("id")=document["getElement"]("id")<br>
+			例1：获取颜色   <input type="button" value="获取" onClick="getColor()" />
+		</p></li>
+		<li><div id="box">
+			<h3>设置CSS属性值</h3>
+				两种方法实现：
+				<ul class="list1">
+					<li><h5>style对象</h5>
+						<p>使用该方法设置一个CSS属性值，其实是在元素的style属性来添加样式，设置的是“行内样式”。<br>
+							语法：obj.style.attr="值";采用的是“骆驼峰”。<br>
+							例2：修改属性值<br>
+							属性：<input id="attr" type="text" /><br>
+							取值：<input id="val" type="text" /><br>
+							<input type="button" value="设置" onClick="set()" />	 <br>
+							注！获取文本框value值其实是字符串，因此不能用obj.style.attr这种方式来设置CSS属性，必须使用obj.style["attr"]
+						</p>
+					</li>
+					<li><h5>cssText对象</h5>
+					<p>该方法可以同时设置多个CSS属性<br>
+						语法：obj.style.cssText=“值”<br>
+						这个字符串的属性名不难使用骆驼峰型写法，而是用平常的CSS写法。
+						例3：<input id="txt" type="text" />  <input type="button" value="设置" onClick="setCssText()" /><br>
+						对于同时设置对个CSS属性，还可以用给元素添加class属性值的方法。
+						例4：<input type="button" value="切换" onClick="changeBack()" />
+						<input type="button" value="获取style属性" onClick="getWidth()" />
+						</p>
+					</li>
+					<li>注！obj.style.attr只可以获取元素style属性，对于内部样式还是外部样式是无法获取的，只能通过getComputerStyle()函数获取。</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</body>
+</html>
